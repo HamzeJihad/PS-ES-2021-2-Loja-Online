@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/commom/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/models/page_manager.dart';
+import 'package:loja_virtual/screen/home/home_screen.dart';
 import 'package:loja_virtual/screen/products/components/products_screen.dart';
+import 'package:loja_virtual/screen/stores/stores_screen.dart';
 import 'package:provider/provider.dart';
 
 class BaseScreen extends StatelessWidget {
@@ -17,13 +19,7 @@ class BaseScreen extends StatelessWidget {
        children: [
 
 
-         
-              Scaffold(
-           drawer: CustomDrawer(),
-           appBar: AppBar(
-             title: Text('Home 1'),
-           ) ,),
-
+         HomeScreen(),
              ProductsScreen(),
 
 
@@ -34,11 +30,7 @@ class BaseScreen extends StatelessWidget {
              title: Text('Home 2 '),
            ) ,),
 
-              Scaffold(
-           drawer: CustomDrawer(),
-           appBar: AppBar(
-             title: Text('Home 3'),
-           ) ,),
+           StoresScreen()
          
        ],
       ),

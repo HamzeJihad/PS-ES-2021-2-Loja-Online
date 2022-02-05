@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
+import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/models/product_manager.dart';
+import 'package:loja_virtual/models/store_manager.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/routes/route_generator.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +36,16 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, cartManager) =>
             cartManager!..updateUser(userManager),
           lazy: false,
-          )
+          ),
+
+        ChangeNotifierProvider(
+          create: (_) => HomeManager(),
+          lazy: false
+          ),
+
+        ChangeNotifierProvider(
+          create: (_) => StoresManager(),
+        ),
       ],
       child: MaterialApp(
       debugShowCheckedModeBanner: false,

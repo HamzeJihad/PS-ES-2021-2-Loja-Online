@@ -33,15 +33,17 @@ class CartProduct extends ChangeNotifier{
 
 
    ItemSize get itemSize {
-    if(product!.name != null) 
+    if(product?.name != null) 
     return product!.findSize(size!);
 
     else return ItemSize();
   }
 
   num get unitPrice {
-    if(product!.name != null);
+    if(itemSize.price != null){
     return itemSize.price ?? 0;
+    }
+    else return 0;
   }
 
   num get getTotalPrice{
