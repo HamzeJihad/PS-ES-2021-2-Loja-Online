@@ -19,6 +19,8 @@ class UserStore {
 
   CollectionReference get cartReference => firestoreRef.collection('cart');
 
+  bool admin = false;
+  
   //salvar todos os dados do usuário no banco de dados
   Future<void> saveData()async{
 
