@@ -4,6 +4,7 @@ import 'package:loja_virtual/models/admins_user_manager.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/models/product_manager.dart';
+import 'package:loja_virtual/models/section.dart';
 import 'package:loja_virtual/models/store_manager.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/routes/route_generator.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 void main() async{
 
  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+await Firebase.initializeApp();
 
 
   runApp(MyApp());
@@ -43,6 +44,12 @@ class MyApp extends StatelessWidget {
           create: (_) => HomeManager(),
           lazy: false
           ),
+
+        //  ChangeNotifierProvider(
+        //   create: (_) => Section(),
+        //   lazy: false
+        //   ),
+  
 
         ChangeNotifierProvider(
           create: (_) => StoresManager(),

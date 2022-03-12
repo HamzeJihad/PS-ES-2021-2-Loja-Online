@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:loja_virtual/models/Section.dart';
+import 'package:loja_virtual/models/section.dart';
 
 class HomeManager extends ChangeNotifier {
 
@@ -8,19 +8,71 @@ class HomeManager extends ChangeNotifier {
     _loadSections();
   }
 
-  List<Section> sections = [];
+  List<Section> _sections = [];
+  bool editing = false;
+
+  List<Section> _editingSections  = []; //lista de seções enquanto edito
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<void> _loadSections() async {
     firestore.collection('home').snapshots().listen((snapshot) {
-      sections.clear();
+      _sections.clear();
       for(final DocumentSnapshot document in snapshot.docs){
-        sections.add(Section.fromDocument(document));
+        _sections.add(Section.fromDocument(document));
       }
       
       notifyListeners();
     });
 
+  }
+
+  void addSection(Section section){
+    _editingSections.add(section);
+    notifyListeners();
+  }
+
+  void removeSection(Section section){
+    _editingSections.remove(section);
+    notifyListeners();
+  }
+
+  List<Section> get sections {
+    if(editing)
+      return _editingSections;
+    else
+      return _sections;
+  }
+
+   void enterEditing(){
+    editing = true;
+    _editingSections = _sections.map((e) => e.clone()).toList(); //clonando para não alterar na section tbm, por isso
+    //passo um clone de section
+    print(_editingSections);
+    notifyListeners();
+  }
+  
+
+  Future<void> saveEditing()async{
+   
+   bool valid = true;
+    for(final section in _editingSections){
+      if(!section.valid()) valid = false;
+    }
+    if(!valid) return;
+    // editing = false;
+    // notifyListeners();
+
+    // TODO: SALVAMENTO
+    for(final section in _editingSections){
+      await section.save();
+    }
+     editing = false;
+    notifyListeners();
+  }
+
+  void discardEditing(){
+    editing = false;
+    notifyListeners();
   }
 } 

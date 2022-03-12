@@ -22,7 +22,27 @@ class ProductScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(product.name!),
           centerTitle: true,
+           actions: <Widget>[
+           
+           Consumer<UserManager>(
+             builder: (_, userManager, __){
+               if(userManager.adminEnabled){
+
+                 return IconButton(
+                    onPressed: (){
+                      Navigator.of(context)
+                          .pushReplacementNamed('/edit_product', arguments: product);
+                    },
+                    icon: Icon(Icons.edit));
+               }
+
+               return Container();
+             },
+           )
+            
+          ],
         ),
+        
         backgroundColor: Colors.white,
         body: ListView(
           children: <Widget>[
