@@ -29,6 +29,7 @@ class SectionStaggered extends StatelessWidget {
           Consumer<Section>(
             builder: (_, section,__){
               return  MasonryGridView.count(
+                physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               crossAxisCount: 4,

@@ -10,6 +10,7 @@ class Section  extends ChangeNotifier{
 
     Section({this.id,this.name, this.type, this.items}){
        items = items ?? [];
+       originalItems = List.from(items?? []);
     }
 
   Section.fromDocument(DocumentSnapshot document){
@@ -34,10 +35,11 @@ class Section  extends ChangeNotifier{
 
 
   //salvar a seção
-  Future<void> save() async {
+  Future<void> save(int pos) async {
     final Map<String, dynamic> data = {
       'name': name,
       'type': type,
+      'pos': pos,
     };
 
     if(id == null){
@@ -59,6 +61,7 @@ class Section  extends ChangeNotifier{
       }
     }
 
+    //passando pelos itens antes da edição e verificando se ainda existe
     for(final original in originalItems!){
       if(!items!.contains(original)){
         try {
@@ -77,6 +80,20 @@ class Section  extends ChangeNotifier{
 
     await firestoreRef.update(itemsData);
 
+  }
+
+  
+  Future<void> delete() async {
+    await firestoreRef.delete();
+    for(final item in items ?? []){
+      try {
+        final ref = storage.ref(
+            item.image as String
+        );
+        await ref.delete();
+      // ignore: empty_catches
+      } catch (e){}
+    }
   }
 
    void addItem(SectionItem item){

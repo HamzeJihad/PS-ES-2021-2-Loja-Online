@@ -32,6 +32,7 @@ class SectionList extends StatelessWidget {
                 builder: (_, section,__){
                   return ListView.separated(
                 scrollDirection: Axis.horizontal,
+                
                 itemBuilder: (_, index){
                   if(index < section.items!.length)
                      return ItemTile(
