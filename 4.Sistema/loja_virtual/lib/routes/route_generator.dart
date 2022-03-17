@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/screen/address/address_screen.dart';
 import 'package:loja_virtual/screen/base_screen/base_screen.dart';
 import 'package:loja_virtual/screen/cart/cart_screen.dart';
+import 'package:loja_virtual/screen/checkout/checkout_screen.dart';
 import 'package:loja_virtual/screen/edit_product/edit_product_screen.dart';
 import 'package:loja_virtual/screen/login/login_screen.dart';
 import 'package:loja_virtual/screen/products/product_screen.dart';
@@ -24,7 +26,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ProductScreen(settings.arguments as Product));
 
       case '/cart':
-        return MaterialPageRoute(builder: (_) => CartScreen());
+        return MaterialPageRoute(builder: (_) => CartScreen(),
+        settings: settings
+
+        );
 
       case '/select_product':
               return MaterialPageRoute(
@@ -35,10 +40,21 @@ class RouteGenerator {
                   builder: (_) => EditProductScreen(
                       settings.arguments as Product
                   )
+              ); 
+
+      case '/address':
+              return MaterialPageRoute(
+                  builder: (_) => AddressScreen()
               );   
+
+      case '/checkout':
+            return MaterialPageRoute(
+                builder: (_) => CheckoutScreen()
+            );             
       case '/base':
       default:
-        return MaterialPageRoute(builder: (_) => BaseScreen());
+        return MaterialPageRoute(builder: (_) => BaseScreen(),
+         settings: settings);
     }
   }
 }

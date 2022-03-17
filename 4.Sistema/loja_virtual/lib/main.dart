@@ -4,7 +4,6 @@ import 'package:loja_virtual/models/admins_user_manager.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/models/product_manager.dart';
-import 'package:loja_virtual/models/section.dart';
 import 'package:loja_virtual/models/store_manager.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/routes/route_generator.dart';
@@ -17,6 +16,7 @@ await Firebase.initializeApp();
 
 
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           
           create: (_) => CartManager(),
           update: (_, userManager, cartManager) =>
-            cartManager!..updateUser(userManager),
+            cartManager!..updateUser(userManager), //sempre que modificar qualquer coisa no usermanager
           lazy: false,
           ),
 
