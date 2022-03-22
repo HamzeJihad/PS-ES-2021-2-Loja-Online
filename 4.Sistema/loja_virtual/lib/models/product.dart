@@ -121,7 +121,7 @@ ItemSize findSize(String name){
     }
 
           for(final image in images!){
-          if(!newImages!.contains(image)){
+          if(!newImages!.contains(image)  && image.contains('firebase')){
             try {
               final ref = storage.refFromURL(image);
               await ref.delete(); //deletando a imagem que não está mais sendo utilizada do firebase

@@ -1,10 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/models/admin_orders_manager.dart';
 import 'package:loja_virtual/models/admins_user_manager.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/home_manager.dart';
+import 'package:loja_virtual/models/orders_manager.dart';
 import 'package:loja_virtual/models/product_manager.dart';
 import 'package:loja_virtual/models/store_manager.dart';
+import 'package:loja_virtual/models/user.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/routes/route_generator.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +48,22 @@ class MyApp extends StatelessWidget {
           lazy: false
           ),
 
+    ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) =>
+            ordersManager!..updateUser(userManager.user ?? UserStore()),
+        ),
+
+
+      ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_, userManager, adminOrdersManager) =>
+            adminOrdersManager!..updateAdmin(    //toda mudança no user irá chamar aqui tbm
+              adminEnabled: userManager.adminEnabled
+            ),   
+      ),
         //  ChangeNotifierProvider(
         //   create: (_) => Section(),
         //   lazy: false
@@ -63,7 +82,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Projeto de Software',
+      title: 'Introdução Humano Computador',
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 4, 125, 141),
         scaffoldBackgroundColor: Color.fromARGB(255, 4, 125, 141),
@@ -74,7 +93,7 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-        initialRoute: '/base',
+        initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
         
      ) );

@@ -86,6 +86,7 @@ class Section  extends ChangeNotifier{
   Future<void> delete() async {
     await firestoreRef.delete();
     for(final item in items ?? []){
+   if((item.image as String).contains('firebase')){
       try {
         final ref = storage.ref(
             item.image as String
@@ -93,7 +94,7 @@ class Section  extends ChangeNotifier{
         await ref.delete();
       // ignore: empty_catches
       } catch (e){}
-    }
+    }}
   }
 
    void addItem(SectionItem item){

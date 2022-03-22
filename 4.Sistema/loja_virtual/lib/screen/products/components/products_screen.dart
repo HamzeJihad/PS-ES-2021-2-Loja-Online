@@ -7,6 +7,8 @@ import 'package:loja_virtual/screen/products/components/search_dialog.dart';
 import 'package:provider/provider.dart';
 
 class ProductsScreen extends StatelessWidget {
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,12 +90,16 @@ class ProductsScreen extends StatelessWidget {
         builder: (_, productManager, __){
           final filteredProducts = productManager.filteredProducts;
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(4),
-            itemCount: filteredProducts.length,
-            itemBuilder: (_, index){
-              return ProductListTile(filteredProducts[index]);
-            }
+          return Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: ListView.separated(
+              padding: const EdgeInsets.all(4),
+              itemCount: filteredProducts.length,
+              itemBuilder: (_, index){
+                return ProductListTile(filteredProducts[index], showButton:  index ==  filteredProducts.length -1? 100: 0,);
+              },
+               separatorBuilder: (BuildContext context, int index) => const Padding(padding:EdgeInsets.only(bottom: 8)),
+            ),
           );
         },
       ),
